@@ -1,0 +1,12 @@
+{
+  "name": "cycle-product-manager",
+  "private": true,
+  "scripts": {
+    "client": "cd client && npm install && npm run start",
+    "api": "cd PruebaTecnicaCycle && dotnet restore && dotnet run --project PruebaTecnicaCycle.Api",
+    "start": "concurrently \"npm:api\" \"npm:client\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.0.0"
+  }
+}
