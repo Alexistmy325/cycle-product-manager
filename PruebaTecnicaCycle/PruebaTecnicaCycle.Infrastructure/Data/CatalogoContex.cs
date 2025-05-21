@@ -1,4 +1,3 @@
-// PruebaTecnicaCycle.Infrastructure/Data/CatalogoContext.cs
 using Microsoft.EntityFrameworkCore;
 using PruebaTecnicaCycle.Domain.Entities;
 

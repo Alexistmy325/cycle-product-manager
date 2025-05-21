@@ -10,3 +10,9 @@ PruebaTecnicaCycle/**/obj/
 .vscode/
 *.user
 *.suo
+
+# dependencias
+/node_modules
+/client/node_modules
+/PruebaTecnicaCycle/**/bin
+/PruebaTecnicaCycle/**/obj
