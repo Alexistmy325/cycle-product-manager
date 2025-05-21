@@ -1,0 +1,68 @@
+/* src/app/components/product-form/product-form.component.scss */
+
+.product-form {
+  max-width: 480px;
+  margin: 0 auto;
+
+  .field-full {
+    margin-bottom: 1rem;
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+  }
+
+  .uploader {
+    width: 100%;
+    .p-fileupload-buttonbar {
+      width: 100%;
+      justify-content: center;
+    }
+    .p-fileupload-content {
+      display: none;
+    }
+  }
+
+  .preview {
+    margin-top: 0.5rem;
+    text-align: center;
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+  }
+
+  &.two-cols {
+    .field-half {
+      margin-bottom: 1rem;
+
+      label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+      }
+
+      input,
+      p-dropdown {
+        width: 100%;
+      }
+    }
+  }
+}
+
+/* Ajustes al encabezado/footer del dialog */
+:host ::ng-deep .p-dialog .p-dialog-header {
+  padding: 1rem 1.5rem;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-footer {
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}

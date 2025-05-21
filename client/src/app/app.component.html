@@ -1,0 +1,19 @@
+<p-toast></p-toast>
+<p-confirmDialog></p-confirmDialog>
+
+<app-topbar (toggleSidebar)="sidebarVisible = !sidebarVisible">
+  <!-- breadcrumb con icono de casa -->
+  <span class="breadcrumb">
+    <i class="pi pi-home"></i> &gt; {{ breadcrumb }}
+  </span>
+</app-topbar>
+
+<p-sidebar
+  [(visible)]="sidebarVisible"
+  [baseZIndex]="10000"
+  position="left"
+  [modal]="false">
+  <p-menu [model]="menuItems"></p-menu>
+</p-sidebar>
+
+<router-outlet></router-outlet>

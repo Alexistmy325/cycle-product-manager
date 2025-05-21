@@ -1,0 +1,12 @@
+# Node / Angular
+client/node_modules/
+client/dist/
+
+# .NET
+PruebaTecnicaCycle/**/bin/
+PruebaTecnicaCycle/**/obj/
+
+# IDEs
+.vscode/
+*.user
+*.suo

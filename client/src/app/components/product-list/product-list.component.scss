@@ -1,0 +1,26 @@
+.actions-panel {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+
+  button .pi {
+    font-size: 1.2rem !important;
+  }
+
+  button.p-button {
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.details {
+  background: #f9f9f9;
+  border-left: 3px solid #007ad9;
+  margin-top: 0.5rem;
+  overflow: hidden;
+}

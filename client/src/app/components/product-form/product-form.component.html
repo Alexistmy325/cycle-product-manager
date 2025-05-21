@@ -1,0 +1,94 @@
+<!-- src/app/components/product-form/product-form.component.html -->
+
+<p-header>
+  <h3>Detalle de Producto</h3>
+</p-header>
+
+<form [formGroup]="form" (ngSubmit)="submit()" class="product-form p-fluid">
+  <!-- Nombre -->
+  <div class="p-field p-col-12">
+    <label for="nombre">Nombre</label>
+    <input id="nombre" pInputText formControlName="nombre" />
+  </div>
+
+  <!-- Descripción -->
+  <div class="p-field p-col-12">
+    <label for="descripcion">Descripción</label>
+    <textarea
+      id="descripcion"
+      pInputTextarea
+      rows="4"
+      formControlName="descripcion"
+    ></textarea>
+  </div>
+
+  <!-- Imagen (input nativo + vista previa) -->
+  <div class="p-field p-col-12">
+    <label for="imagenFile">Imagen</label>
+    <input
+      id="imagenFile"
+      type="file"
+      accept="image/*"
+      (change)="onFileChange($event)"
+      class="p-inputtext"
+    />
+    <div class="preview" *ngIf="previewImg">
+      <img [src]="previewImg" alt="Vista previa" style="max-width:100%; margin-top:.5rem;" />
+    </div>
+  </div>
+
+  <!-- Grid para Categoría + Precio -->
+  <div class="p-formgrid p-grid p-col-12">
+    <!-- Categoría -->
+    <div class="p-field p-col-12 p-md-6">
+      <label>Categoría</label>
+      <div class="p-grid">
+        <div
+          *ngFor="let c of ['Aseo','Ropa','Camiseta','Electrónica']"
+          class="p-col-6 p-field-radiobutton"
+        >
+          <p-radioButton
+            name="categoria"
+            [value]="c"
+            formControlName="categoria"
+            [inputId]="'cat-'+c"
+          ></p-radioButton>
+          <label [for]="'cat-'+c">{{ c }}</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Precio -->
+    <div class="p-field p-col-12 p-md-6">
+      <label for="precio">Precio</label>
+      <input
+        id="precio"
+        pInputText
+        type="number"
+        formControlName="precio"
+        min="0"
+        step="0.01"
+        placeholder="0.00"
+      />
+    </div>
+  </div>
+</form>
+
+<p-footer class="p-d-flex p-jc-end">
+  <button
+    pButton
+    type="button"
+    label="Cancelar"
+    icon="pi pi-times"
+    class="p-button-text p-mr-2"
+    (click)="cancel()"
+  ></button>
+  <button
+    pButton
+    type="submit"
+    label="Guardar"
+    icon="pi pi-check"
+    [disabled]="form.invalid || loading"
+    (click)="submit()"
+  ></button>
+</p-footer>

@@ -1,0 +1,12 @@
+<div class="topbar p-shadow-2">
+  <!-- Botón hamburguesa -->
+  <button
+    pButton
+    icon="pi pi-bars"
+    class="p-button-text p-mr-2"
+    (click)="toggleSidebar.emit()">
+  </button>
+
+  <!-- Proyección del breadcrumb -->
+  <ng-content></ng-content>
+</div>

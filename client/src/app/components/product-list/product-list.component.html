@@ -1,0 +1,174 @@
+<!-- src/app/components/product-list/product-list.component.html -->
+
+<!-- ConfirmDialog necesario -->
+<p-confirmDialog></p-confirmDialog>
+
+<p-toolbar class="mb-3">
+  <div class="p-toolbar-group-left">
+    <!-- Toggle entre vista grid y table -->
+    <button
+      pButton
+      type="button"
+      icon="pi pi-th-large"
+      class="p-button-rounded p-button-text p-button-sm"
+      (click)="layout = 'grid'">
+    </button>
+    <button
+      pButton
+      type="button"
+      icon="pi pi-table"
+      class="p-button-rounded p-button-text p-button-sm p-ml-2"
+      (click)="layout = 'table'">
+    </button>
+  </div>
+  <div class="p-toolbar-group-center">
+    <span class="p-input-icon-left">
+      <i class="pi pi-search"></i>
+      <input
+        pInputText
+        type="text"
+        placeholder="Buscar..."
+        [(ngModel)]="searchValue" />
+    </span>
+  </div>
+  <div class="p-toolbar-group-right">
+    <button
+      pButton
+      type="button"
+      label="Nuevo producto"
+      icon="pi pi-plus"
+      class="p-button-success p-button-sm"
+      (click)="openForm()">
+    </button>
+  </div>
+</p-toolbar>
+
+<!-- ==== GRID VIEW ==== -->
+<p-dataView
+  *ngIf="layout === 'grid'"
+  [value]="filteredProducts"
+  layout="grid"
+  [paginator]="true"
+  [rows]="8"
+  [loading]="loading">
+  <ng-template pTemplate="gridItem" let-product>
+    <div class="p-col-12 p-md-6 p-lg-3">
+      <p-card styleClass="mb-3" [style]="{'overflow':'visible'}">
+        <ng-template pTemplate="header">
+          <img
+            [src]="product.imagen ? 'data:image/jpeg;base64,' + product.imagen : 'assets/no-image.png'"
+            alt="{{ product.nombre }}"
+            style="width:100%;height:150px;object-fit:cover" />
+        </ng-template>
+        <div class="p-card-content">
+          <div class="p-mb-2">
+            <b>{{ product.nombre }}</b>
+            <p-tag [value]="product.estado ? 'Activo' : 'Inactivo'"></p-tag>
+          </div>
+          <p>Categoría: {{ product.categoria }}</p>
+          <div
+            *ngIf="product.showDetails"
+            @detailExpand
+            class="details p-mt-2 p-p-2 p-shadow-1">
+            <div><b>Descripción:</b> {{ product.descripcion }}</div>
+            <div><b>Precio:</b> {{ product.precio | currency }}</div>
+          </div>
+        </div>
+        <p-footer class="actions-panel">
+          <button
+            pButton
+            type="button"
+            icon="pi pi-eye"
+            class="p-button-rounded p-button-text p-button-sm p-mr-2"
+            (click)="toggleDetails(product)">
+          </button>
+          <button
+            pButton
+            type="button"
+            icon="pi pi-pencil"
+            class="p-button-rounded p-button-text p-button-sm p-mr-2"
+            (click)="openForm(product.id)">
+          </button>
+          <button
+            pButton
+            type="button"
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-text p-button-sm p-button-danger"
+            (click)="onDelete(product.id)">
+          </button>
+        </p-footer>
+      </p-card>
+    </div>
+  </ng-template>
+</p-dataView>
+
+<!-- ==== TABLE VIEW ==== -->
+<ng-template #priceTpl let-p="rowData">
+  {{ p.precio | currency }}
+</ng-template>
+
+<p-table
+  *ngIf="layout === 'table'"
+  [value]="filteredProducts"
+  [paginator]="true"
+  [rows]="8"
+  [loading]="loading"
+  [responsiveLayout]="'scroll'">
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="width:60px">Producto</th>
+      <th>Nombre</th>
+      <th>Categoría</th>
+      <th>Precio</th>
+      <th>Descripción</th>
+      <th style="width:160px">Acciones</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-p>
+    <tr>
+      <td>
+        <img
+          [src]="p.imagen ? 'data:image/jpeg;base64,' + p.imagen : 'assets/no-image.png'"
+          alt="{{ p.nombre }}"
+          style="width:40px;height:40px;object-fit:cover;border-radius:4px" />
+      </td>
+      <td>{{ p.nombre }}</td>
+      <td>{{ p.categoria }}</td>
+      <td>
+        <ng-container *ngTemplateOutlet="priceTpl; context:{rowData: p}"></ng-container>
+      </td>
+      <td>{{ p.descripcion }}</td>
+      <td class="actions-panel">
+        <button
+          pButton
+          type="button"
+          icon="pi pi-eye"
+          class="p-button-text p-button-sm p-mr-2"
+          (click)="toggleDetails(p)">
+        </button>
+        <button
+          pButton
+          type="button"
+          icon="pi pi-pencil"
+          class="p-button-text p-button-sm p-mr-2"
+          (click)="openForm(p.id)">
+        </button>
+        <button
+          pButton
+          type="button"
+          icon="pi pi-trash"
+          class="p-button-text p-button-sm p-button-danger"
+          (click)="onDelete(p.id)">
+        </button>
+      </td>
+    </tr>
+    <tr *ngIf="p.showDetails">
+      <td colspan="6" class="p-pt-0">
+        <div @detailExpand class="details p-p-3 p-shadow-1">
+          <div><b>Descripción:</b> {{ p.descripcion }}</div>
+          <div><b>Precio:</b> {{ p.precio | currency }}</div>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
